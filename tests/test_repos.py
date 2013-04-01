@@ -713,6 +713,7 @@ class TestRepository(BaseCase):
 
         l = next(self.repo.iter_languages())
         expect(l).isinstance(tuple)
+        expect(l[1]).isinstance(int)
         self.mock_assertions()
 
     def test_iter_milestones(self):
