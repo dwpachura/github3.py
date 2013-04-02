@@ -52,8 +52,12 @@ class GitHubIterator(GitHubCore, Iterator):
 
             # languages returns a single dict. We want the items.
             if isinstance(json, dict):
-                json.pop('Etag')
-                json.pop('Last-Modified')
+                # we don't want the ETag and Last-Modified items inserted by
+                # _json
+                if 'ETag' in json:
+                    json.pop('ETag')
+                if 'Last-Modified' in json:
+                    json.pop('Last-Modified')
                 json = json.items()
 
             for i in json:

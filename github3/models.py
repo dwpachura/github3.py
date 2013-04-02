@@ -84,7 +84,7 @@ class GitHubCore(GitHubObject):
 
     def _json(self, response, status_code):
         ret = None
-        __logs__.info('Attempting to get JSON information from a Response '
+        __logs__.debug('Attempting to get JSON information from a Response '
                       'with status code %d expecting %d',
                       response.status_code, status_code)
         if self._boolean(response, status_code, 404) and response.content:
@@ -96,7 +96,7 @@ class GitHubCore(GitHubObject):
                     'Last-Modified', ''
                 )
                 ret['ETag'] = response.headers.get('ETag', '')
-        __logs__.info('JSON was %sreturned', 'not ' if ret is None else '')
+        __logs__.debug('JSON was %sreturned', 'not ' if ret is None else '')
         return ret
 
     def _boolean(self, response, true_code, false_code):
@@ -139,7 +139,7 @@ class GitHubCore(GitHubObject):
         parts.extend(args)
         parts = [str(p) for p in parts]
         key = tuple(parts)
-        __logs__.info('Building a url from %s', key)
+        __logs__.debug('Building a url from %s', key)
         if not key in __url_cache__:
             __logs__.info('Missed the cache building the url')
             __url_cache__[key] = '/'.join(parts)
